@@ -16,10 +16,24 @@ class ApiController extends Controller
             Source::where(['competitor_id'=>$competitor,'ip'=>$ipinfo['ip']])->update(['updated_at'=>date("Y-m-d H:i:s")]);
             return $ipinfo['ip'];
         }else{
-            //实在没有可用ip了
-            //取最近入库的，成功数最多的
-            $ipinfo = Source::where(['competitor_id'=>$competitor])->orderBy("catch_success",'desc')->first();
-            return $ipinfo['ip'];
+            //优先取其他竞争对手的可用ip
+            $ipinfo = Source::where(['status'=>'active'])->orderBy('updated_at','asc')->first();
+            if($ipinfo){
+                $data = [
+                    'competitor_id'=>$competitor,
+                    'ip'=>$ipinfo['ip'],
+                    'catch_fail'=>5,
+                    'status'=>'active'
+                ];
+                Source::insert($data);
+                return $ipinfo['ip'];
+            }else{
+
+                //实在没有可用ip了
+                //取最近入库的，成功数最多的
+                $ipinfo = Source::where(['competitor_id'=>$competitor])->orderBy("catch_success",'desc')->first();
+                return $ipinfo['ip']??'';
+            }
         }
     }
 
