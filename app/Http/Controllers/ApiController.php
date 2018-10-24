@@ -25,7 +25,7 @@ class ApiController extends Controller
                     'catch_fail'=>5,
                     'status'=>'active'
                 ];
-                Source::insert($data);
+                Source::updateOrCreate($data);
                 return $ipinfo['ip'];
             }else{
 
