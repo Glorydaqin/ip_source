@@ -19,13 +19,17 @@ class ApiController extends Controller
             //优先取其他竞争对手的可用ip
             $ipinfo = Source::where(['status'=>'active'])->orderBy('updated_at','asc')->first();
             if($ipinfo){
-                $data = [
+                //原数据更新时间,防止重复取值
+                Source::where("id",$ipinfo['id'])->update(['updated_at'=>date("Y-m-d H:i:s")]);
+                $find = [
                     'competitor_id'=>$competitor,
                     'ip'=>$ipinfo['ip'],
+                ];
+                $data = [
                     'catch_fail'=>5,
                     'status'=>'active'
                 ];
-                Source::updateOrCreate($data);
+                Source::updateOrCreate($find,$data);
                 return $ipinfo['ip'];
             }else{
 

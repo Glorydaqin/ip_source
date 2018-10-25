@@ -79,5 +79,8 @@ class ParseCatchInfo extends Command
                 DB::select($replace_insert_sql);
             }
         }
+
+        //删除15天前日志
+        CompetitorCatchLog::where("created_at",'<',date("Y-m-d H:i:s"))->delete();
     }
 }

@@ -14,9 +14,10 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \App\Console\Commands\CheckIp::class,
-        \App\Console\Commands\GetSourceIp::class,
-        \App\Console\Commands\DelSourceIp::class,
+        Commands\CheckIp::class,
+        Commands\GetSourceIp::class,
+        Commands\DelSourceIp::class,
+        Commands\ParseCatchInfo::class,
     ];
 
     /**
