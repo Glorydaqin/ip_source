@@ -14,6 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Horizon::auth(function ($request) {
+    return true;
+    // return true / false;
+});
 //admin
 Route::any("admin/login","Admin\LoginController@login");
 Route::get("admin/logout","Admin\LoginController@logout");
