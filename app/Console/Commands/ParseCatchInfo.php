@@ -80,8 +80,8 @@ class ParseCatchInfo extends Command
             }
         }
 
-        //分批删除15天前抓取记录
-        CompetitorCatchLog::where("created_at",'<',date("Y-m-d H:i:s",strtotime('-10 days')))
+        //分批删除15天前抓取记录，这种方式 。chunk的数据和删除的是一个数据，会有部分数据被跳过处理。不过也够用了。
+        CompetitorCatchLog::where("created_at",'<',date("Y-m-d H:i:s",strtotime('-7 days')))
             ->orderBy("id",'asc')
             ->chunk(10000,function ($logs){
                 CompetitorCatchLog::whereIn("id",$logs->pluck("id")->toArray())->delete();
