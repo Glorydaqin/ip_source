@@ -81,6 +81,6 @@ class ParseCatchInfo extends Command
         }
 
         //删除15天前日志
-        CompetitorCatchLog::where("created_at",'<',date("Y-m-d H:i:s"))->delete();
+        CompetitorCatchLog::where("created_at",'<',date("Y-m-d H:i:s",strtotime('-15 days')))->delete();
     }
 }
