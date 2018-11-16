@@ -42,7 +42,7 @@ class ParseCatchInfo extends Command
     {
 
         //分批删除15天前抓取记录
-        DB::table("competitor_catch_log")->where("created_at",'<',date("Y-m-d H:i:s",strtotime('-15 days')))
+        DB::table("ip_competitor_catch_log")->where("created_at",'<',date("Y-m-d H:i:s",strtotime('-15 days')))
             ->orderBy("id",'asc')
             ->chunk(2000,function ($logs){
                 CompetitorCatchLog::whereIn("id",$logs->pluck('id'))->delete();
