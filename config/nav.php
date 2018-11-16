@@ -28,17 +28,14 @@ return [
             'ip来源列表'=>'Admin\CatchSourceController@store'
         ]
     ],
-    '邮件监控提醒'=>[
+    '监控提醒'=>[
         'icon'=>'fa-edit',
         'link'=>'#',
 
-//        'level'=>
-//        [
-//            'Coupon网站更新'=>'Admin\DataMonitorController@reportMerCoupon',
-//            'Coupon抓取监控'=>'Admin\DataMonitorController@catchMonitor',
-//            'Coupon点击命中率'=>'Admin\DataMonitorController@reportViewClick',
-//            'Coupon收益'=>'Admin\DataMonitorController@reportAffCommission',
-//        ]
+        'level'=>
+        [
+            '进程调度'=>'/horizon/dashboard',
+        ]
     ],
 
 ];

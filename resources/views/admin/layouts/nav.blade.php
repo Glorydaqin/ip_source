@@ -10,7 +10,7 @@
             <ul class="nav nav-second-level">
                 @foreach($value['level'] as $k=>$item)
                     @if (!is_array($item))
-                        <li><a class="J_menuItem" href="{{ action($item) }}">{{ $k }}</a></li>
+                        <li><a class="J_menuItem" href="@if(substr($item,0,1)=='/'){{ $item }}@else{{ action($item) }}@endif">{{ $k }}</a></li>
                     @else
                         <li>
                             <a href="#">{{ $k }} <span class="fa arrow"></span></a>
