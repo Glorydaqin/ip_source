@@ -40,6 +40,13 @@ class ParseCatchInfo extends Command
      */
     public function handle()
     {
+
+        //分批删除15天前抓取记录
+        CompetitorCatchLog::where("created_at",'<',date("Y-m-d H:i:s",strtotime('-15 days')))->chunck(2000,function ($logs){
+            dd($logs->pluck('id'));
+            CompetitorCatchLog::whereIn("id",$logs->pluck('id'))->delete();
+        });
+
         $yestoday = date("Y-m-d",strtotime("-1 day"));
         $today = date("Y-m-d");
         $dates = [$yestoday,$today];
@@ -80,7 +87,10 @@ class ParseCatchInfo extends Command
             }
         }
 
-        //删除15天前日志
-        CompetitorCatchLog::where("created_at",'<',date("Y-m-d H:i:s",strtotime('-15 days')))->delete();
+        //分批删除15天前抓取记录
+        CompetitorCatchLog::where("created_at",'<',date("Y-m-d H:i:s",strtotime('-15 days')))->chunck(2000,function ($logs){
+            dd($logs->pluck('id'));
+            CompetitorCatchLog::whereIn("id",$logs->pluck('id'))->delete();
+        });
     }
 }
