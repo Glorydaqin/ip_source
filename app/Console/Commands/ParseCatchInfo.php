@@ -84,7 +84,7 @@ class ParseCatchInfo extends Command
         CompetitorCatchLog::where("created_at",'<',date("Y-m-d H:i:s",strtotime('-10 days')))
             ->orderBy("id",'asc')
             ->chunk(10000,function ($logs){
-                CompetitorCatchLog::whereIn("id",$logs->pluck('id'))->delete();
+                CompetitorCatchLog::whereIn("id",array_column($logs->toArray(),'id'))->delete();
             });
     }
 }
