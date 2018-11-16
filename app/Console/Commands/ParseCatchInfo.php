@@ -81,10 +81,9 @@ class ParseCatchInfo extends Command
         }
 
         //分批删除15天前抓取记录
-        CompetitorCatchLog::where("created_at",'<',date("Y-m-d H:i:s",strtotime('-5 days')))
+        CompetitorCatchLog::where("created_at",'<',date("Y-m-d H:i:s",strtotime('-10 days')))
             ->orderBy("id",'asc')
-            ->chunk(1000,function ($logs){
-                dump('1000');
+            ->chunk(10000,function ($logs){
                 CompetitorCatchLog::whereIn("id",$logs->pluck('id'))->delete();
             });
     }
