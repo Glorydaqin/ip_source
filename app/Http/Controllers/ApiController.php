@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\CompetitorCatchLog;
-use App\Jobs\ProcessSetIp;
 use App\Source;
 use Illuminate\Http\Request;
 

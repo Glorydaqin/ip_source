@@ -187,7 +187,7 @@
                         <tbody>
                         @foreach($catch_log as $item)
                         <tr>
-                            <td><span style="color:hotpink;">{{ $item->competitor->name }}</span></td>
+                            <td><span style="color:hotpink;">{{ $item->competitor->name ?? '' }}</span></td>
                             <td>{{ $item->ip }}</td>
                             <td>{{ $item->status }}</td>
                             <td class="text-navy">{{ $item->created_at }}</td>
