@@ -52,7 +52,7 @@ class ApiController extends Controller
             Source::where(['ip'=>$ip,'competitor_id'=>$competitor])->update(['catch_fail'=>$ipinfo['catch_fail']+1,'status'=>'delete']);
             CompetitorCatchLog::insert(['competitor_id'=>$competitor,'ip'=>$ip,'status'=>"fail"]);
         }else{
-            if($this->status == 'success'){
+            if($status == 'success'){
                 Source::where(['ip'=>$ip,'competitor_id'=>$competitor])->update(['catch_success'=>$ipinfo['catch_success']+1]);
                 CompetitorCatchLog::insert(['competitor_id'=>$competitor,'ip'=>$ip,'status'=>"success"]);
             }else{
