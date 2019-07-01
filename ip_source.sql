@@ -137,6 +137,7 @@ INSERT INTO `ip_competitor_catch_log` VALUES ('4', '1', '37.187.66.59:3128', 'fa
 -- ----------------------------
 DROP TABLE IF EXISTS `ip_source`;
 CREATE TABLE `ip_source` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `competitor_id` int(11) NOT NULL,
   `ip` varchar(50) NOT NULL,
   `catch_success` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '抓取成功次数',
