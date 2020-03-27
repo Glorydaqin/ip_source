@@ -158,7 +158,7 @@
                         <tbody>
                         @foreach($all_catch_source as $source)
                             <tr>
-                                <td style="max-width: 400px;overflow: scroll;">
+                                <td style="max-width: 200px;overflow: scroll;">
                                     <span style="color:hotpink;">{{ $source->url }}</span>
                                 </td>
                                 <td>{{ $source->match_preg }}</td>
