@@ -37,3 +37,4 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>'auth.admin']
 //api
 Route::get('/get_ip/{competitor}', "ApiController@getIp")->where(['competitor'=>'\d+']);
 Route::get('/set_ip/{competitor}/{ip}/{status}', "ApiController@setIp")->where(['competitor'=>'\d+','ip'=>'[\d\.\:]+']);
+Route::get('/get_panel', "ApiController@getPanel");
