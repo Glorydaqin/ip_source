@@ -142,7 +142,7 @@ class CheckIp extends Command
         }
         if($up_ip_sql!=$up_ip_pre_sql){
             $up_ip_sql = substr($up_ip_sql,0,(strlen($up_ip_sql)-1))." ON DUPLICATE KEY update `status` = values(`status`),`updated_at`='{$updated_at}'";
-            DB::select($up_ip_sql);
+            DB::insert($up_ip_sql);
         }
         echo "\nend at ".date("Y-m-d H:i:s");
     }
