@@ -214,7 +214,7 @@
             {{--function(){--}}
                 {{--WinMove();setTimeout(--}}
                         {{--function(){--}}
-                            {{--$.gritter.add({title:"数据监控周报(需要检查项)",text:'@foreach($reportCouponNum as $item) @if($item->couponNum <50 or $item->codeNum <20) {{ $item->competitor->Url }}&nbsp;coupon:{{$item->couponNum}},code:{{$item->codeNum}} </br>  @endif @endforeach',--}}
+                            {{--$.gritter.add({title:"数据监控周报(需要检查项)",text:'@foreach($reportCouponNum as $item) @if($item->couponNum <50 ?? $item->codeNum <20) {{ $item->competitor->Url }}&nbsp;coupon:{{$item->couponNum}},code:{{$item->codeNum}} </br>  @endif @endforeach',--}}
                                 {{--time:30000})--}}
                         {{--},--}}
                         {{--1000);--}}

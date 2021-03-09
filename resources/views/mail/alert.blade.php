@@ -51,7 +51,7 @@
             <h3 style="margin:24px 0 12px 0;border-bottom:1px solid #e0e0e0;padding-bottom:6px;color:#555;font-size:16px">内容更新率 <small style="color: #4a79b7;">三日更新SALE/CODE</small></h3>
             <?php $i=0; ?>
             @foreach($reportCouponNum as $item)
-                @if($item->couponNum <50 or $item->codeNum <20)
+                @if($item->couponNum <50 ?? $item->codeNum <20)
                     <h4 style="margin:0;margin-bottom:6px;margin-top:6px">
                         {{ $item->competitor->Url }} : {{$item->couponNum}} | {{$item->codeNum}}
                     </h4>
