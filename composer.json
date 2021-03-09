@@ -9,7 +9,7 @@
         "ares333/php-curl": "^4.0",
         "fideloper/proxy": "~4.0",
         "guzzlehttp/guzzle": "^6.3",
-        "laravel/framework": "7.0.*",
+        "laravel/framework": "7.30.*",
         "rmccue/requests": "^1.7"
     },
     "require-dev": {
