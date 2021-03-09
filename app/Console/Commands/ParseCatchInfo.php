@@ -76,7 +76,7 @@ class ParseCatchInfo extends Command
             }
             if(!empty($insert_arr)){
                 $replace_insert_sql = $replace_insert_sql.implode(",",$insert_arr)." ON DUPLICATE KEY update `catch_success` = values(`catch_success`),`catch_fail` = values(`catch_fail`),`updated_at`=now()";
-                DB::select($replace_insert_sql);
+                DB::insert($replace_insert_sql);
             }
         }
 

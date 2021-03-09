@@ -76,12 +76,12 @@ class GetSourceIp extends Command
         foreach ($insert_arr as $item){
             $insert_tmp[] = "({$item['competitor_id']},'{$item['ip']}')";
             if(count($insert_tmp)>1000){
-                DB::select("insert ignore ip_source(`competitor_id`,`ip`) values ".implode(',',$insert_tmp));
+                DB::insert("insert ignore ip_source(`competitor_id`,`ip`) values ".implode(',',$insert_tmp));
                 $insert_tmp = array();
             }
         }
         if(!empty($insert_tmp)){
-            DB::select("insert ignore ip_source(`competitor_id`,`ip`) values ".implode(',',$insert_tmp));
+            DB::insert("insert ignore ip_source(`competitor_id`,`ip`) values ".implode(',',$insert_tmp));
         }
     }
 }
