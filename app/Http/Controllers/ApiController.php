@@ -50,19 +50,20 @@ class ApiController extends Controller
         // 不以异步异步方式执行记录抓取效果了
 //        ProcessSetIp::dispatch($competitor,$ip,$status);
         $ipinfo = Source::where(['ip' => $ip, 'competitor_id' => $competitor])->first();
-        if ($ipinfo['catch_fail'] > 5 and $status == 'fail') {
+        if (!$ipinfo || !in_array($status, ['fail', 'success'])) {
+            return 1;
+        }
+        if ($ipinfo['catch_fail'] > 5 && $status == 'fail') {
             //修改为失败
             Source::where(['ip' => $ip, 'competitor_id' => $competitor])->update(['catch_fail' => $ipinfo['catch_fail'] + 1, 'status' => 'delete']);
-            CompetitorCatchLog::insert(['competitor_id' => $competitor, 'ip' => $ip, 'status' => "fail"]);
         } else {
             if ($status == 'success') {
                 Source::where(['ip' => $ip, 'competitor_id' => $competitor])->update(['catch_success' => $ipinfo['catch_success'] + 1]);
-                CompetitorCatchLog::insert(['competitor_id' => $competitor, 'ip' => $ip, 'status' => "success"]);
             } else {
                 Source::where(['ip' => $ip, 'competitor_id' => $competitor])->update(['catch_fail' => $ipinfo['catch_fail'] + 1]);
-                CompetitorCatchLog::insert(['competitor_id' => $competitor, 'ip' => $ip, 'status' => "fail"]);
             }
         }
+        CompetitorCatchLog::insert(['competitor_id' => $competitor, 'ip' => $ip, 'status' => $status]);
         return 1;
     }
 
