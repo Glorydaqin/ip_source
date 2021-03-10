@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Competitor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Input;
 
 class CompetitorController extends Controller
 {
@@ -26,11 +25,11 @@ class CompetitorController extends Controller
     }
 
     //验证网站列表
-    public function store()
+    public function store(Request $request)
     {
         $handle = Competitor::query();
-        if(!empty(Input::get("url"))){
-            $like = trim(Input::get('url'));
+        if(!empty($request->get("url"))){
+            $like = trim($request->get('url'));
             $handle->where("url",'like',"%{$like}%");
         }
 
@@ -46,7 +45,6 @@ class CompetitorController extends Controller
 
             if(isset($_REQUEST['submit'])){
                 //提交
-//                dd(Input::get(['name','url','flag','min_num','status']));
                 $data = $request->all(['name','url','flag','min_num','status']);
                 $data['updated_at'] = date("Y-m-d H:i:s");
                 if( Competitor::where("id",$id)->update($data) ){
