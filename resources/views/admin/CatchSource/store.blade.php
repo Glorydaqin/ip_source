@@ -61,8 +61,8 @@
                         <table class="table table-striped table-hover">
                             <thead>
                             <tr>
-
                                 <th>id</th>
+                                <th>desc</th>
                                 <th>url</th>
                                 <th>match_preg</th>
                                 <th>status</th>
@@ -77,6 +77,7 @@
                                 <td>
                                     {{ $item->id }}
                                 </td>
+                                <td><span class="text-success">{{ $item->description }}</span></td>
                                 <td>{{ $item->url }}</td>
                                 <td>{{$item->match_preg}}</td>
                                 <td>{{ $item->status }}</td>
