@@ -54,7 +54,10 @@ class GetSourceIp extends Command
                 if ($match_res) {
 
                     //遍历资源
-                    foreach ($match_ips[1] as $match_ip) {
+                    foreach ($match_ips[1] as $key => $match_ip) {
+                        $match_ip = (isset($match_ips[2][$key]) && stripos($match_ip, ':') === false) ?
+                            $match_ip . ':' . $match_ips[2][$key] :
+                            $match_ip;
                         //遍历需要验证网站
                         foreach ($competitor as $com) {
 
