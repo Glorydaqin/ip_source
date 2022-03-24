@@ -163,7 +163,7 @@
                                 </td>
                                 <td>{{ $source->match_preg }}</td>
                                 <td>
-                                    {{ $source->last_match_num }}
+                                    <a href="#" data-toggle="tooltip" title="{{ $source->last_error_info }}">{{ $source->last_match_num }}</a>
                                 </td>
                                 <td class="text-navy">
                                     {{ $source->updated_at }}
@@ -209,18 +209,9 @@
 <script src="js/content.min.js?v=1.0.0"></script>
 <script src="js/plugins/jquery-ui/jquery-ui.min.js"></script>
 <script src="js/plugins/gritter/jquery.gritter.min.js"></script>
-{{--<script>--}}
-    {{--$(document).ready(--}}
-            {{--function(){--}}
-                {{--WinMove();setTimeout(--}}
-                        {{--function(){--}}
-                            {{--$.gritter.add({title:"数据监控周报(需要检查项)",text:'@foreach($reportCouponNum as $item) @if($item->couponNum <50 ?? $item->codeNum <20) {{ $item->competitor->Url }}&nbsp;coupon:{{$item->couponNum}},code:{{$item->codeNum}} </br>  @endif @endforeach',--}}
-                                {{--time:30000})--}}
-                        {{--},--}}
-                        {{--1000);--}}
-            {{--}--}}
-    {{--);--}}
-{{--</script>--}}
+<script>
+    $(function () { $("[data-toggle='tooltip']").tooltip(); });
+</script>
 
 </body>
 
