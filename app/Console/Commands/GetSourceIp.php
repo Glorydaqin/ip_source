@@ -47,30 +47,39 @@ class GetSourceIp extends Command
         $catch_source = CatchSource::where("status", 'active')->get();
         //遍历所有资源
         foreach ($catch_source as $item) {
-            $request = \Requests::get($item['url']);
-            $str = $request->body;
-            if ($str) {
-                $match_res = preg_match_all($item['match_preg'], $str, $match_ips);
-                if ($match_res) {
 
-                    //遍历资源
-                    foreach ($match_ips[1] as $key => $match_ip) {
-                        $match_ip = (isset($match_ips[2][$key]) && stripos($match_ip, ':') === false) ?
-                            $match_ip . ':' . $match_ips[2][$key] :
-                            $match_ip;
-                        //遍历需要验证网站
-                        foreach ($competitor as $com) {
+            try {
+                $request = \Requests::get($item['url']);
+                $str = $request->body;
+                if ($str) {
+                    $match_res = preg_match_all($item['match_preg'], $str, $match_ips);
+                    if ($match_res) {
 
-                            $insert_arr[] = array("competitor_id" => $com->id, "ip" => trim($match_ip));
+                        //遍历资源
+                        foreach ($match_ips[1] as $key => $match_ip) {
+                            $match_ip = (isset($match_ips[2][$key]) && stripos($match_ip, ':') === false) ?
+                                $match_ip . ':' . $match_ips[2][$key] :
+                                $match_ip;
+                            //遍历需要验证网站
+                            foreach ($competitor as $com) {
+
+                                $insert_arr[] = array("competitor_id" => $com->id, "ip" => trim($match_ip));
+                            }
                         }
+                        //更新获取数量
+                        CatchSource::where("id", $item->id)->update(
+                            ['last_match_num' => count($match_ips[1]), 'last_error_info' => null,
+                                'updated_at' => date("Y-m-d H:i:s")]);
+
+                    } else {
+                        new \Exception('没有匹配到数据');
                     }
-                    //更新获取数量
-                    CatchSource::where("id", $item->id)->update(['last_match_num' => count($match_ips[1]), 'updated_at' => date("Y-m-d H:i:s")]);
 
-                } else {
-                    echo "no match";
                 }
-
+            } catch (\Exception $exception) {
+                CatchSource::where("id", $item->id)->update(
+                    ['last_match_num' => 0, 'last_error_info' => substr($exception->getMessage(), 0, 500),
+                        'updated_at' => date("Y-m-d H:i:s")]);
             }
 
         }
