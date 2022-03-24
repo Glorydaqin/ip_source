@@ -170,7 +170,7 @@
                                 </td>
                             </tr>
                             @if(!empty($source->last_error_info))
-                                <tr><td colspan="4" class="text-warning">{{ $source->last_error_info }}</td></tr>
+                                <tr><td>异常原因</td><td colspan="3" class="text-warning">{{ $source->last_error_info }}</td></tr>
                             @endif
                         @endforeach
                         </tbody>
