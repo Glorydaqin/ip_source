@@ -49,7 +49,8 @@ class GetSourceIp extends Command
         foreach ($catch_source as $item) {
 
             try {
-                $request = \Requests::get($item['url']);
+                $options  = array('verify' => false); //不验证ssl
+                $request = \Requests::get($item['url'],[],$options);
                 $str = $request->body;
                 if ($str) {
                     $match_res = preg_match_all($item['match_preg'], $str, $match_ips);
