@@ -159,16 +159,19 @@
                         @foreach($all_catch_source as $source)
                             <tr>
                                 <td style="max-width: 200px;overflow: scroll;">
-                                    <span style="color:hotpink;">{{ $source->url }}</span>
+                                    <a style="color:hotpink;" href="{{ $source->url }}" target="_blank">{{ $source->description }}</a>
                                 </td>
                                 <td>{{ $source->match_preg }}</td>
                                 <td>
-                                    <a href="#" data-toggle="tooltip" title="{{ $source->last_error_info }}">{{ $source->last_match_num }}</a>
+                                   {{ $source->last_match_num }}
                                 </td>
                                 <td class="text-navy">
                                     {{ $source->updated_at }}
                                 </td>
                             </tr>
+                            @if(!empty($source->last_error_info))
+                                <td><tr colspan="4" class="text-warning">{{ $source->last_error_info }}</tr></td>
+                            @endif
                         @endforeach
                         </tbody>
                     </table>
@@ -210,7 +213,7 @@
 <script src="js/plugins/jquery-ui/jquery-ui.min.js"></script>
 <script src="js/plugins/gritter/jquery.gritter.min.js"></script>
 <script>
-    $(function () { $("[data-toggle='tooltip']").tooltip(); });
+    // $(function () { $("[data-toggle='tooltip']").tooltip(); });
 </script>
 
 </body>
