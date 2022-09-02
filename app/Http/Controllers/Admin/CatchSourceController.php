@@ -90,7 +90,7 @@ class CatchSourceController extends Controller
                                 $match_ips[] = $match_ip;
                             }
 
-                            return back()->with(['status' => "获取到ip数:[" . count($match_ips) . "]\n抽查一个ip:[" . $match_ips[0] . ']']);
+                            return back()->with(['status' => "获取到ip数:[" . count($match_ips) . "]\n抽查一个ip:[" . $match_ips[array_rand($match_ips, 1)] . ']']);
 
                         } else {
                             new \Exception('没有匹配到数据');
