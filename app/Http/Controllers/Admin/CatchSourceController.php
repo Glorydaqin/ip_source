@@ -63,4 +63,50 @@ class CatchSourceController extends Controller
             return redirect()->action("Admin\CatchSourceController@store")->with(['status' => "id为空"]);
         }
     }
+
+
+    //更新
+    public function try_catch(Request $request)
+    {
+        $id = $request->get("id");
+        if ($id) {
+            $catchSource = CatchSource::where("id", $id)->first();
+            if ($catchSource) {
+
+                try {
+                    $options = array('verify' => false); //不验证ssl
+                    $request = \Requests::get($catchSource['url'], [], $options);
+                    $str = $request->body;
+                    if ($str) {
+                        $match_res = preg_match_all($catchSource['match_preg'], $str, $match_ips);
+                        if ($match_res) {
+
+                            $match_ips = [];
+                            //遍历资源
+                            foreach ($match_ips[1] as $key => $match_ip) {
+                                $match_ip = (isset($match_ips[2][$key]) && stripos($match_ip, ':') === false) ?
+                                    $match_ip . ':' . $match_ips[2][$key] :
+                                    $match_ip;
+                                $match_ips[] = $match_ip;
+                            }
+
+                            return back()->with(['status' => "获取到ip数:[" . count($match_ips) . "]\n抽查一个ip:[" . $match_ips[0] . ']']);
+
+                        } else {
+                            new \Exception('没有匹配到数据');
+                        }
+
+                    }
+                } catch (\Exception $exception) {
+                    return back()->with(['status' => "抓取异常:" . substr($exception->getMessage(), 0, 500)]);
+                }
+
+            } else {
+                return back()->with(['status' => "数据异常"]);
+            }
+
+        } else {
+            return back()->with(['status' => "id为空"]);
+        }
+    }
 }

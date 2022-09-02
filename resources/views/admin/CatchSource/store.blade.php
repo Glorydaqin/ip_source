@@ -84,7 +84,8 @@
                                 <td>{{ $item->created_at }}</td>
                                 <td>{{ $item->updated_at }}</td>
                                 <td>
-                                    <a href="{{ action("Admin\CatchSourceController@update",['id'=>$item->id]) }}">修改</a>
+                                    <a class="btn btn-sm btn-info" href="{{ action("Admin\CatchSourceController@update",['id'=>$item->id]) }}">修改</a>
+                                    <a class="btn btn-sm btn-warning" href="{{ action("Admin\CatchSourceController@try_catch",['id'=>$item->id]) }}">抓取测试</a>
                                 </td>
                             </tr>
                             @endforeach

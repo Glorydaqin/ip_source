@@ -31,6 +31,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>'auth.admin']
     Route::any("catch_source/insert", "CatchSourceController@insert");
     Route::any("catch_source/store", "CatchSourceController@store");
     Route::any("catch_source/update", "CatchSourceController@update");
+    Route::any("catch_source/try_catch", "CatchSourceController@try_catch");
 });
 
 
